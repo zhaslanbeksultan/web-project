@@ -1,11 +1,12 @@
 Web-Project "Messenger"
 
 Our team members:
-   Zhaslan Beksultan
-   Amangeldi Madina
-   Bayaly Arailym
+   Zhaslan Beksultan,
+   Amangeldi Madina,
+   Bayaly Arailym,
 
 The web-app that we are going to create is "Messenger"
+
 
 Short description of our application:
     Our application will have a view where users signup using a username. To
