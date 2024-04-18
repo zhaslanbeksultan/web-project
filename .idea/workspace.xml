@@ -4,11 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bae016a-bcc0-4167-b5a8-a3aff7d537e5" name="Changes" comment="" />
+    <list default="true" id="8bae016a-bcc0-4167-b5a8-a3aff7d537e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/back-end/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/.idea/back-end.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/api/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/api/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/api/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/api/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/api/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/api/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/cinema/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/cinema/asgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/cinema/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/cinema/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/cinema/wsgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/db.sqlite3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/manage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back-end/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -22,7 +49,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/zhasl/OneDrive/Рабочий стол/cinematrix/back-end",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/zhasl/OneDrive/Рабочий стол/cinematrix",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,13 +84,6 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-python-sdk-09665e90c3a7-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15026.15" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -73,6 +94,9 @@
       <updated>1713443722884</updated>
       <workItem from="1713443724092" duration="342000" />
       <workItem from="1713444232956" duration="74000" />
+      <workItem from="1713447487877" duration="54000" />
+      <workItem from="1713447551292" duration="66000" />
+      <workItem from="1713448074136" duration="110000" />
     </task>
     <servers />
   </component>
