@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
-from api.models import Movie, TVSeries, TVChannel, User, Genre, Actor
+from api.models import Movie, TVSeries, TVChannel, User, Genre, Actor, Country
 
 
 class TVChannelsSerializer(serializers.Serializer):
@@ -52,9 +52,15 @@ class ActorSerializer(serializers.ModelSerializer):
         model = Actor
         fields = ('id', 'first_name', 'second_name', 'gender')
 
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ['id', 'name']
+
 class MovieSerializer(serializers.ModelSerializer):
     genres = GenresSerializer(many=True)
     actors = ActorSerializer(many=True)
+    country = CountrySerializer()
     class Meta:
         model = Movie
         fields = ("id", "name", "description", "year", "genres", "actors", "country", "poster", "rating")

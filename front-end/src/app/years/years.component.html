@@ -1,0 +1,14 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<h3>Years:</h3>
+
+<ul>
+  <li *ngFor="let year of years" (click)="onActorClick(year.id)">
+    {{ year.year }}
+  </li>
+</ul>

@@ -1,0 +1,14 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<h3>Countries:</h3>
+
+<ul>
+  <li *ngFor="let country of countries" (click)="onActorClick(country.id)">
+    {{ country.name }}
+  </li>
+</ul>

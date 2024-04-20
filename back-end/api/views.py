@@ -1,13 +1,14 @@
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from rest_framework.decorators import api_view
+from rest_framework.exceptions import NotFound
 
-from api.models import Movie, User, TVSeries, TVChannel, Genre
+from api.models import Movie, User, TVSeries, TVChannel, Genre, Actor, Country, Year
 from rest_framework import status, generics, permissions
 from rest_framework.views import APIView
 from api.serializers import MovieSerializer, TVSeriesSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer, \
-    TVChannelsSerializer, GenresSerializer
+    TVChannelsSerializer, GenresSerializer, ActorSerializer, CountrySerializer
 
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -27,8 +28,8 @@ class Top250TVSeriesAPIView(APIView):
 
 class Top250TVChannelsAPIView(APIView):
     def get(self, request):
-        tv_channels = TVSeries.objects.order_by('-rating')[:250]
-        serializer = TVSeriesSerializer(tv_channels, many=True)
+        tv_channels = TVChannel.objects.order_by('-rating')[:250]
+        serializer = TVChannelsSerializer(tv_channels, many=True)
         return Response(serializer.data)
 
 
@@ -109,11 +110,82 @@ def genres_list(request):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
 def get_movies_by_genre(request, genre_id):
     try:
         movies = Movie.objects.filter(genres__id=genre_id)
-        serializer = MovieSerializer(movies, many=True)
+        tv_series = TVSeries.objects.filter(genres__id=genre_id)
+        movie_serializer = MovieSerializer(movies, many=True)
+        tv_series_serializer = TVSeriesSerializer(tv_series, many=True)
+        data = {
+            'movies': movie_serializer.data,
+            'tv_series': tv_series_serializer.data
+        }
+        return Response(data)
+    except (Movie.DoesNotExist, TVSeries.DoesNotExist):
+        raise NotFound("No movies or TV series found for the specified genre ID.")
+
+@api_view(['GET'])
+def actor_list(request):
+    actors = Actor.objects.all()
+    serializer = ActorSerializer(actors, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def actor_movies(request, actor_id):
+    actor = get_object_or_404(Actor, pk=actor_id)
+    movies = Movie.objects.filter(actors=actor)
+    tv_series = TVSeries.objects.filter(actors=actor)
+    movie_serializer = MovieSerializer(movies, many=True)
+    tv_series_serializer = TVSeriesSerializer(tv_series, many=True)
+    data = {
+        'movies': movie_serializer.data,
+        'tv_series': tv_series_serializer.data
+    }
+    return Response(data)
+
+@api_view(['GET'])
+def country_list(request):
+    if request.method == 'GET':
+        countries = Country.objects.all()
+        serializer = CountrySerializer(countries, many=True)
         return Response(serializer.data)
-    except Movie.DoesNotExist:
-        raise Http404("No movies found for the specified genre ID.")
+
+
+@api_view(['GET'])
+def country_movies(request, country_id):
+    country = get_object_or_404(Country, pk=country_id)
+    movies = Movie.objects.filter(country=country)
+    tv_series = TVSeries.objects.filter(country=country)
+    movie_serializer = MovieSerializer(movies, many=True)
+    tv_series_serializer = TVSeriesSerializer(tv_series, many=True)
+    data = {
+        'movies': movie_serializer.data,
+        'tv_series': tv_series_serializer.data
+    }
+    return Response(data)
+
+@api_view(['GET'])
+def year_list(request):
+    years = Year.objects.all()
+    data = [{'id': year.id, 'year': year.year} for year in years]
+    return Response(data)
+
+
+@api_view(['GET'])
+def year_movies(request, year_id):
+    try:
+        year = Year.objects.get(id=year_id)
+        movies = Movie.objects.filter(year=year)
+        tv_series = TVSeries.objects.filter(year=year)
+        movie_serializer = MovieSerializer(movies, many=True)
+        tv_series_serializer = TVSeriesSerializer(tv_series, many=True)
+        response_data = {
+            'movies': movie_serializer.data,
+            'tv_series': tv_series_serializer.data
+        }
+        return Response(response_data)
+    except Year.DoesNotExist:
+        return Response({'message': 'Year not found'}, status=404)

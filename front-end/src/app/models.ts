@@ -7,8 +7,8 @@ export interface User {
 
 export interface Actor {
   id: number;
-  firstName: string;
-  secondName: string;
+  first_name: string;
+  second_name: string;
   gender: 'M' | 'F';
 }
 
@@ -59,3 +59,18 @@ export interface Token {
   access: string;
   refresh: string;
 }
+export interface Country {
+  id: number;
+  name: string;
+}
+
+export interface Year {
+  id: number;
+  year: number;
+}
+
+export interface MovieResponse {
+  movies: Movie[];
+  tv_series: TVSeries[];
+}
+

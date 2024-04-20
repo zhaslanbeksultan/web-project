@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Movie, Actor, Genre, TVChannel, TVSeries
+from .models import Movie, Actor, Genre, TVChannel, TVSeries, Country
 
 
 # Register your models here.
 
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description', 'year', 'country', 'poster', 'rating')
+    list_display = ('id', 'name', 'description', 'year', 'get_genres', 'get_actors', 'country', 'poster', 'rating')
 
     def get_genres(self, obj):
         return ", ".join([genre.name for genre in obj.genres.all()])
@@ -35,3 +35,8 @@ class TVSeriesAdmin(admin.ModelAdmin):
 class ActorAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'second_name')
     search_fields = ('first_name',)
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('name',)

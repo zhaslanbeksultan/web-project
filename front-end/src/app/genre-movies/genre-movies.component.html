@@ -4,7 +4,7 @@
 <br>
 <br>
 
-<h2>Movies filtered by genre</h2>
+<h2>Movies filtered by genre:</h2>
 
 <ul>
   <li *ngFor="let movie of movies">
@@ -14,3 +14,16 @@
     <!-- Add more movie details as needed -->
   </li>
 </ul>
+
+<h2>TV Series filtered by genre:</h2>
+
+<ul>
+  <li *ngFor="let s of tvSeries">
+    <!-- Display movie details -->
+    <p>{{ s.name }}</p>
+    <p>{{ s.description }}</p>
+    <!-- Add more movie details as needed -->
+  </li>
+</ul>
+
+

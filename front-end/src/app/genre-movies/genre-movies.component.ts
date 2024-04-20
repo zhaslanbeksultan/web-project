@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Movie} from "../models";
+import {Movie, TVSeries} from "../models";
 import {ActivatedRoute, RouterModule} from "@angular/router";
 import {MovieService} from "../services/movie.service";
 import {CommonModule} from "@angular/common";
@@ -14,6 +14,7 @@ import {CommonModule} from "@angular/common";
 export class GenreMoviesComponent implements OnInit {
   genreId: string | null = null;
   movies: Movie[] = [];
+  tvSeries: TVSeries[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,8 +32,9 @@ export class GenreMoviesComponent implements OnInit {
 
   getMoviesByGenre(genreId: string): void {
     this.movieService.getMoviesByGenre(genreId)
-      .subscribe(movies => {
-        this.movies = movies;
+      .subscribe(data  => {
+        this.movies = data.movies;
+        this.tvSeries = data.tv_series;
       });
   }
 }

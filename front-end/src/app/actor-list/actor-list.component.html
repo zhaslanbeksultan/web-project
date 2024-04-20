@@ -1,1 +1,14 @@
-<p>actor-list works!</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<h3>Actors:</h3>
+
+<ul>
+  <li *ngFor="let actor of actors" (click)="onActorClick(actor.id)">
+    {{ actor.first_name }} {{ actor.second_name }}
+  </li>
+</ul>
