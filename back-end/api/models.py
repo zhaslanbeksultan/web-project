@@ -5,6 +5,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class User(AbstractUser):
     email = models.EmailField(max_length=255, unique=True, db_index=True, default='')
 
+    class Meta:
+        # add this meta class to avoid clashes with the default User model
+        swappable = 'AUTH_USER_MODEL'
+
     def __str__(self):
         return self.username
 

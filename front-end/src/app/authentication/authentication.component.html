@@ -1,0 +1,25 @@
+<ng-container *ngIf="!logged">
+  <h3>Login form</h3>
+  <fieldset>
+    <label for="username">Username: </label>
+    <input type="text" id="username" [(ngModel)]="username">
+  </fieldset>
+  <fieldset>
+    <label for="password">Password: </label>
+    <input type="password" id="password" [(ngModel)]="password">
+  </fieldset>
+  <button (click)="login()">Login</button>
+  <form (ngSubmit)="signup()">
+    <input type="email" name="email" [(ngModel)]="email" placeholder="Email" required>
+    <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required>
+    <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required>
+    <button type="submit">Sign Up</button>
+  </form>
+</ng-container>
+
+<ng-container *ngIf="logged">
+  <br>
+  <br>
+  <h2>You are Logged in.</h2>
+  <button (click)="logout()">Logout</button>
+</ng-container>

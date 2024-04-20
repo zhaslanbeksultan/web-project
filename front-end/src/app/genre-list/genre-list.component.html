@@ -1,0 +1,13 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h3>Genres:</h3>
+
+<ul>
+  <li *ngFor="let m of genres">
+    <a [routerLink]="['/movies/genres/', m.id]">{{m.name}}</a>
+  </li>
+</ul>

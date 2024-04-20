@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
-from api.models import Movie, TVSeries, TVChannel, User, Genre
+from api.models import Movie, TVSeries, TVChannel, User, Genre, Actor
 
 
 class TVChannelsSerializer(serializers.Serializer):
@@ -47,16 +47,31 @@ class GenresSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+class ActorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = ('id', 'first_name', 'second_name', 'gender')
+
 class MovieSerializer(serializers.ModelSerializer):
+    genres = GenresSerializer(many=True)
+    actors = ActorSerializer(many=True)
     class Meta:
         model = Movie
-        fields = ("name", "description", "year", "genres", "actors", "country", "poster", "rating")
+        fields = ("id", "name", "description", "year", "genres", "actors", "country", "poster", "rating")
 
 class TVSeriesSerializer(serializers.ModelSerializer):
+    genres = GenresSerializer(many=True)
+    actors = ActorSerializer(many=True)
     class Meta:
         model = TVSeries
-        fields = ("name", "description", "season", "episodes",
+        fields = ("id", "name", "description", "season", "episodes",
                   "year", "genres", "actors", "country", "poster", "rating")
+
+class TVChannelsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TVChannel
+        fields = ("id", "name", "description",
+                  "year", "country", "poster", "rating")
 
 
 # Authentication Serializers
