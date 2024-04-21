@@ -4,6 +4,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from .views import FavoriteListCreateAPIView, FavoriteRetrieveUpdateDestroyAPIView
+
 urlpatterns = [
     path('register/',views.RegisterView.as_view(),name="register"),
     path('login/',views.LoginAPIView.as_view(),name="login"),
@@ -27,7 +29,7 @@ urlpatterns = [
     path('movies/top250movies/', views.Top250MoviesAPIView.as_view(), name='top250movies'),
     path('top250tvseries/', views.Top250TVSeriesAPIView.as_view(), name='top250tvserials'),
     path('top250tvchannels/', views.Top250TVChannelsAPIView.as_view(), name='top250tvchannels'),
-    path('favorites/', views.FavoriteViewSet.as_view({'get': 'list', 'post': 'create'}), name='favorites'),
-    path('favorites/<int:pk>/', views.FavoriteViewSet.as_view(
-        {'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}), name='favorite-detail'),
+    path('favorites/', FavoriteListCreateAPIView.as_view(), name='favorite-list-create'),
+    path('favorites/<int:pk>/', FavoriteRetrieveUpdateDestroyAPIView.as_view(),
+         name='favorite-retrieve-update-destroy'),
 ]

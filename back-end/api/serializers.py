@@ -142,4 +142,4 @@ class LogoutSerializer(serializers.Serializer):
 class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite
-        fields = '__all__'
+        fields = ['id', 'user', 'movie']

@@ -3,6 +3,7 @@ import {Movie} from "../models";
 import {ActivatedRoute} from "@angular/router";
 import {MovieService} from "../services/movie.service";
 import {CommonModule} from "@angular/common";
+import {FavoritesService} from "../services/favorites.service";
 
 @Component({
   selector: 'app-movie-detail',
@@ -13,17 +14,19 @@ import {CommonModule} from "@angular/common";
 })
 export class MovieDetailComponent implements OnInit{
   movie!: Movie;
+  movieId!: number;
 
   constructor(
     private route: ActivatedRoute,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private favoritesService: FavoritesService
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const movieId = +params.get('movieId')!;
-      if (movieId) {
-        this.getMovieDetails(movieId);
+      this.movieId = +params.get('movieId')!;
+      if (this.movieId) {
+        this.getMovieDetails(this.movieId);
       } else {
         console.error('movieId is null');
       }
@@ -34,5 +37,10 @@ export class MovieDetailComponent implements OnInit{
     this.movieService.getMovieById(movieId).subscribe(movie => {
       this.movie = movie;
     });
+  }
+
+  addFavorite(): void {
+    this.favoritesService.addFavorite(this.movieId)
+      .subscribe(() => console.log('Movie added to favorites'));
   }
 }

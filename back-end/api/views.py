@@ -1,3 +1,5 @@
+from django.contrib import messages
+# from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
@@ -8,8 +10,9 @@ from rest_framework.permissions import IsAuthenticated
 from api.models import Movie, User, TVSeries, TVChannel, Genre, Actor, Country, Year, Favorite
 from rest_framework import status, generics, permissions, viewsets
 from rest_framework.views import APIView
-from api.serializers import MovieSerializer, TVSeriesSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer, \
-    TVChannelsSerializer, GenresSerializer, ActorSerializer, CountrySerializer, YearSerializer, FavoriteSerializer
+from api.serializers import (MovieSerializer, TVSeriesSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer,
+                             TVChannelsSerializer, GenresSerializer, ActorSerializer, CountrySerializer, YearSerializer,
+                             FavoriteSerializer)
 
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -217,10 +220,18 @@ def tvseries_detail(request, tvseries_id):
     serializer =TVSeriesSerializer(tvseries)
     return Response(serializer.data)
 
-class FavoriteViewSet(viewsets.ModelViewSet):
+class FavoriteListCreateAPIView(generics.ListCreateAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class FavoriteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Favorite.objects.filter(user=self.request.user)

@@ -11,6 +11,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  getToken(): string | null {
+    return localStorage.getItem('access');
+  }
+
   login(username: string, password: string): Observable<Token> {
     return this.http.post<Token>(
       `${this.BASE_URL}/api/login/`,

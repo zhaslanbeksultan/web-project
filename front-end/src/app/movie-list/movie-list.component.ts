@@ -3,6 +3,8 @@ import {Movie} from "../models";
 import {MovieService} from "../services/movie.service";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
+import {FavoritesService} from "../services/favorites.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-movie-list',
@@ -14,7 +16,8 @@ import {RouterModule} from "@angular/router";
 export class MovieListComponent implements OnInit{
   movies: Movie[] = [];
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService, private favoriteService: FavoritesService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -27,4 +30,5 @@ export class MovieListComponent implements OnInit{
       this.movies = data;
     })
   }
+
 }

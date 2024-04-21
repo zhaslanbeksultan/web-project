@@ -93,13 +93,7 @@ class TVChannel(models.Model):
 
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True, blank=True)
-    tv_series = models.ForeignKey(TVSeries, on_delete=models.CASCADE, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user', 'movie')  # Ensures each user can have only one favorite entry per movie
-        unique_together = ('user', 'tv_series')  # Ensures each user can have only one favorite entry per TV series
-
-    def __str__(self):
-        return f'{self.user.username} - {self.movie.name if self.movie else self.tv_series.name}'
+        unique_together = ['user', 'movie']

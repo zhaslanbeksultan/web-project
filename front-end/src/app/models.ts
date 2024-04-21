@@ -74,3 +74,8 @@ export interface MovieResponse {
   tv_series: TVSeries[];
 }
 
+export interface Favorite {
+  id: number;
+  user: string; // Assuming user is identified by username
+  movie: number; // Movie ID
+}

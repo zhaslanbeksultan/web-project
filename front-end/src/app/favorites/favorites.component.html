@@ -1,0 +1,11 @@
+<br>
+<br>
+<br>
+<br>
+<ul>
+  <li *ngFor="let favorite of favorites">
+    <span>{{ favorite.movie }}</span>
+    <button (click)="updateFavorite(favorite.id, newMovieId)">Update</button>
+    <button (click)="removeFavorite(favorite.id)">Remove</button>
+  </li>
+</ul>

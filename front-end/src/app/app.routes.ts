@@ -21,7 +21,7 @@ import {TvchannelCollectionsComponent} from "./tvchannel-collections/tvchannel-c
 import {MovieDetailComponent} from "./movie-detail/movie-detail.component";
 import {TvseriesDetailComponent} from "./tvseries-detail/tvseries-detail.component";
 import {TvchannelsDetailComponent} from "./tvchannels-detail/tvchannels-detail.component";
-
+import {FavoritesComponent} from "./favorites/favorites.component";
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent, title: 'Home'},
@@ -46,6 +46,7 @@ export const routes: Routes = [
   { path: 'countries/:countryId/films', component: CountryFilmsComponent, title: 'Country Films'},
   { path: 'years', component: YearsComponent , title: 'Years'},
   { path: 'years/:yearId/films', component: YearFilmsComponent, title: 'Year Films'},
+  { path: 'favorites', component: FavoritesComponent, title: 'Favorites'},
 
 ];
 export const routing = RouterModule.forRoot(routes);
