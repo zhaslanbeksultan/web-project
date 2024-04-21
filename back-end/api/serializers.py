@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
-from api.models import Movie, TVSeries, TVChannel, User, Genre, Actor, Country
+from api.models import Movie, TVSeries, TVChannel, User, Genre, Actor, Country, Year, Favorite
 
 
 class TVChannelsSerializer(serializers.Serializer):
@@ -56,6 +56,11 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = ['id', 'name']
+
+class YearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Year
+        fields = ['id', 'year']
 
 class MovieSerializer(serializers.ModelSerializer):
     genres = GenresSerializer(many=True)
@@ -133,3 +138,8 @@ class LogoutSerializer(serializers.Serializer):
             RefreshToken(self.token).blacklist()
         except TokenError:
             self.fail('bad_token')
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = '__all__'

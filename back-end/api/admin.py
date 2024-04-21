@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Movie, Actor, Genre, TVChannel, TVSeries, Country
+from .models import Movie, Actor, Genre, TVChannel, TVSeries, Country, Year
 
 
 # Register your models here.
@@ -40,3 +40,9 @@ class ActorAdmin(admin.ModelAdmin):
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     search_fields = ('name',)
+
+@admin.register(Year)
+class YearAdmin(admin.ModelAdmin):
+    list_display = ('id', 'year')
+    search_fields = ('year',)
+

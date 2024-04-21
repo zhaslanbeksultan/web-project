@@ -8,6 +8,6 @@
 
 <ul>
   <li *ngFor="let m of genres">
-    <a [routerLink]="['/movies/genres/', m.id]">{{m.name}}</a>
+    <a [routerLink]="['/genres', m.id]">{{m.name}}</a>
   </li>
 </ul>

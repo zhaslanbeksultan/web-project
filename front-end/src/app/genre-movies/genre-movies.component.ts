@@ -12,7 +12,7 @@ import {CommonModule} from "@angular/common";
   styleUrl: './genre-movies.component.css'
 })
 export class GenreMoviesComponent implements OnInit {
-  genreId: string | null = null;
+  genreId!: number;
   movies: Movie[] = [];
   tvSeries: TVSeries[] = [];
 
@@ -23,14 +23,14 @@ export class GenreMoviesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.genreId = params.get('genreId');
+      this.genreId = +params.get('genreId')!;
       if (this.genreId) {
         this.getMoviesByGenre(this.genreId);
       }
     });
   }
 
-  getMoviesByGenre(genreId: string): void {
+  getMoviesByGenre(genreId: number): void {
     this.movieService.getMoviesByGenre(genreId)
       .subscribe(data  => {
         this.movies = data.movies;

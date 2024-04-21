@@ -28,7 +28,7 @@ export class YearsComponent implements OnInit{
       });
   }
 
-  onActorClick(yearId: number): void {
+  onYearClick(yearId: number): void {
     this.router.navigate(['years', yearId, 'films']);
   }
 }

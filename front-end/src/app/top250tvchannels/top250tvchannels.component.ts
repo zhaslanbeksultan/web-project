@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from "@angular/common";
-import {Movie} from "../models";
+import {Movie, TVChannel} from "../models";
 import {MovieService} from "../services/movie.service";
+import {TvchannelService} from "../services/tvchannel.service";
 
 @Component({
   selector: 'app-top250tvchannels',
@@ -13,9 +14,9 @@ import {MovieService} from "../services/movie.service";
   styleUrl: './top250tvchannels.component.css'
 })
 export class Top250tvchannelsComponent implements OnInit{
-  movies: Movie[] = [];
+  tvchannels: TVChannel[] = [];
 
-  constructor(private movieService: MovieService) {
+  constructor(private tvchannelService: TvchannelService) {
   }
 
   ngOnInit() {
@@ -23,9 +24,9 @@ export class Top250tvchannelsComponent implements OnInit{
   }
 
   getTop250TVChannels(){
-    this.movieService.getTop250TVChannels().subscribe((data)=>{
+    this.tvchannelService.getTop250TVChannels().subscribe((data)=>{
       console.log(data);
-      this.movies = data;
+      this.tvchannels = data;
     })
   }
 }

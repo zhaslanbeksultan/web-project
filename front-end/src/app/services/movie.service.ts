@@ -18,23 +18,19 @@ export class MovieService {
     )
   }
   getTop250Movies():Observable<Movie[]>{
+    console.log('here')
     return this.http.get<Movie[]>(
-      `${this.BASE_URL}/api/top250movies/`
-    )
-  }
-  getTop250TVChannels():Observable<Movie[]>{
-    return this.http.get<Movie[]>(
-      `${this.BASE_URL}/api/top250tvchannels/`
-    )
-  }
-  getTop250TVSeries():Observable<Movie[]>{
-    return this.http.get<Movie[]>(
-      `${this.BASE_URL}/api/top250tvseries/`
+      `${this.BASE_URL}/api/movies/top250movies/`
     )
   }
 
-  getMoviesByGenre(genreId: string): Observable<MovieResponse> {
-    const url = `${this.BASE_URL}/api/movies/genres/${genreId}/`;
+  getMovieById(movieId: number): Observable<Movie> {
+    const url = `${this.BASE_URL}/api/movies/${movieId}/`;
+    return this.http.get<Movie>(url);
+  }
+
+  getMoviesByGenre(genreId: number): Observable<MovieResponse> {
+    const url = `${this.BASE_URL}/api/genres/${genreId}/movies`;
     return this.http.get<MovieResponse>(url);
   }
 

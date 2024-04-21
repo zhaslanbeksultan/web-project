@@ -40,13 +40,13 @@ class Genre(models.Model):
         return self.name
 
 class Country(models.Model):
-    name = models.CharField(max_length=100, unique=True, null=True, blank=True)
+    name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
 
 class Year(models.Model):
-    year = models.IntegerField(null=True, blank=True)
+    year = models.IntegerField()
 
     def __str__(self):
         if self.year is not None:
@@ -56,14 +56,14 @@ class Year(models.Model):
 class Movie(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-    year = models.ForeignKey(Year, on_delete=models.CASCADE, null=True, blank=True)
+    year = models.IntegerField()
     genres = models.ManyToManyField(Genre)
     actors = models.ManyToManyField(Actor)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     poster = models.URLField()
     rating = models.FloatField(max_length=10)
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 class TVSeries(models.Model):
@@ -71,10 +71,10 @@ class TVSeries(models.Model):
     description = models.TextField()
     season = models.IntegerField()
     episodes = models.IntegerField()
-    year = models.IntegerField(null=True, blank=True)
+    year = models.IntegerField()
     genres = models.ManyToManyField(Genre)
     actors = models.ManyToManyField(Actor)
-    country = models.TextField()
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     poster = models.URLField()
     rating = models.FloatField(max_length=10)
 
@@ -84,10 +84,22 @@ class TVSeries(models.Model):
 class TVChannel(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    year = models.IntegerField(null=True, blank=True)
-    country = models.TextField()
+    year = models.IntegerField()
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     poster = models.URLField()
     rating = models.FloatField(max_length=10)
     def str(self):
         return self.name
 
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True, blank=True)
+    tv_series = models.ForeignKey(TVSeries, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'movie')  # Ensures each user can have only one favorite entry per movie
+        unique_together = ('user', 'tv_series')  # Ensures each user can have only one favorite entry per TV series
+
+    def __str__(self):
+        return f'{self.user.username} - {self.movie.name if self.movie else self.tv_series.name}'

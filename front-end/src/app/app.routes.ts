@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {MovieListComponent} from "./movie-list/movie-list.component";
 import {TvseriesListComponent} from "./tvseries-list/tvseries-list.component";
@@ -18,25 +18,27 @@ import {Top250tvchannelsComponent} from "./top250tvchannels/top250tvchannels.com
 import {MovieCollectionsComponent} from "./movie-collections/movie-collections.component";
 import {TvseriesCollectionsComponent} from "./tvseries-collections/tvseries-collections.component";
 import {TvchannelCollectionsComponent} from "./tvchannel-collections/tvchannel-collections.component";
+import {MovieDetailComponent} from "./movie-detail/movie-detail.component";
+import {TvseriesDetailComponent} from "./tvseries-detail/tvseries-detail.component";
+import {TvchannelsDetailComponent} from "./tvchannels-detail/tvchannels-detail.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent, title: 'Home'},
   { path: 'moviecollections', component: MovieCollectionsComponent , title: 'Movie Collections'},
   { path: 'movies', component: MovieListComponent , title: 'Movies'},
-  { path: 'movies/top250movies', component: Top250moviesComponent , title: 'top250movies'},
+  { path: 'movies/:movieId', component: MovieDetailComponent },
+  { path: 'top250movies', component: Top250moviesComponent , title: 'top250movies'},
   { path: 'tvseriescollections', component: TvseriesCollectionsComponent , title: 'TV Series Collections'},
   { path: 'tvseries', component: TvseriesListComponent, title: 'TVSeries'},
-  { path: 'tvseries/top250tvseries', component: Top250tvseriesComponent , title: 'top250tvseries'},
+  { path: 'tvseries/:tvseriesId', component: TvseriesDetailComponent },
+  { path: 'top250tvseries', component: Top250tvseriesComponent , title: 'top250tvseries'},
   { path: 'tvchannelcollections', component: TvchannelCollectionsComponent , title: 'TV Channel Collections'},
   { path: 'tvchannels', component: TvchannelsListComponent , title: 'TVChannels'},
-  { path: 'tvchannels/top250tvchannels', component: Top250tvchannelsComponent , title: 'top250tvchannels'},
-  { path: 'movies/genres', component: GenreListComponent , title: 'Movie Genres'},
-  { path: 'movies/genres/:genreId', component: GenreMoviesComponent , title: 'Genre Movies'},
-  { path: 'movies/years', component: MovieListComponent , title: 'Movie Years'},
-  { path: 'movies/years/:yearId', component: MovieListComponent , title: 'Movie Year'},
-  { path: 'movies/countries/', component: MovieListComponent , title: 'Movie Countries'},
-  { path: 'movies/countries/:countryId', component: MovieListComponent , title: 'Movie Country'},
+  { path: 'tvchannels/:tvchannelId', component: TvchannelsDetailComponent },
+  { path: 'top250tvchannels', component: Top250tvchannelsComponent , title: 'top250tvchannels'},
+  { path: 'genres', component: GenreListComponent , title: 'Movie Genres'},
+  { path: 'genres/:genreId', component: GenreMoviesComponent , title: 'Genre Movies'},
   { path: 'actors', component: ActorListComponent , title: 'Actors'},
   { path: 'actors/:actorId/films', component: ActorFilmsComponent, title: 'Actor Films'},
   { path: 'auth', component: AuthenticationComponent , title: 'Authentication'},
@@ -46,3 +48,4 @@ export const routes: Routes = [
   { path: 'years/:yearId/films', component: YearFilmsComponent, title: 'Year Films'},
 
 ];
+export const routing = RouterModule.forRoot(routes);

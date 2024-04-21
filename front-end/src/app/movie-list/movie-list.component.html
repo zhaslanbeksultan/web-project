@@ -1,7 +1,11 @@
+<br>
+<br>
+<br>
+<br>
 <h3>Movies:</h3>
 
 <ul>
-  <li *ngFor="let m of movies">
-    {{m.id}} - {{m.name}}
+  <li *ngFor="let movie of movies">
+    <a [routerLink]="['/movies', movie.id]">{{ movie.name }}</a>
   </li>
 </ul>

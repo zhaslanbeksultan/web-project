@@ -3,12 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 
-from api.models import Movie, User, TVSeries, TVChannel, Genre, Actor, Country, Year
-from rest_framework import status, generics, permissions
+from api.models import Movie, User, TVSeries, TVChannel, Genre, Actor, Country, Year, Favorite
+from rest_framework import status, generics, permissions, viewsets
 from rest_framework.views import APIView
 from api.serializers import MovieSerializer, TVSeriesSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer, \
-    TVChannelsSerializer, GenresSerializer, ActorSerializer, CountrySerializer
+    TVChannelsSerializer, GenresSerializer, ActorSerializer, CountrySerializer, YearSerializer, FavoriteSerializer
 
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -178,8 +179,8 @@ def year_list(request):
 def year_movies(request, year_id):
     try:
         year = Year.objects.get(id=year_id)
-        movies = Movie.objects.filter(year=year)
-        tv_series = TVSeries.objects.filter(year=year)
+        movies = Movie.objects.filter(year=year.year)
+        tv_series = TVSeries.objects.filter(year=year.year)
         movie_serializer = MovieSerializer(movies, many=True)
         tv_series_serializer = TVSeriesSerializer(tv_series, many=True)
         response_data = {
@@ -189,3 +190,37 @@ def year_movies(request, year_id):
         return Response(response_data)
     except Year.DoesNotExist:
         return Response({'message': 'Year not found'}, status=404)
+
+
+
+@api_view(['GET'])
+def year_single(request, year_id):
+    year = get_object_or_404(Year, pk=year_id)
+    serializer = YearSerializer(year)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def movie_detail(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def tvchannel_detail(request, tvchannel_id):
+    tvchannel = get_object_or_404(TVChannel, pk=tvchannel_id)
+    serializer = TVChannelsSerializer(tvchannel)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def tvseries_detail(request, tvseries_id):
+    tvseries = get_object_or_404(TVSeries, pk=tvseries_id)
+    serializer =TVSeriesSerializer(tvseries)
+    return Response(serializer.data)
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
