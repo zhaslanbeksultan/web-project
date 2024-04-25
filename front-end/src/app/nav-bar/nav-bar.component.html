@@ -1,35 +1,26 @@
-<!--<nav>-->
-<!--  <ul>-->
-<!--    <li><a routerLink="/">Home</a></li>-->
-<!--    <li><a routerLink="/movies">Movies</a></li>-->
-<!--    <li><a routerLink="/tvchannels">TV Channels</a></li>-->
-<!--    <li><a routerLink="/tvseries">TV Series</a></li>-->
-<!--    &lt;!&ndash; Add more links as needed &ndash;&gt;-->
-<!--  </ul>-->
-<!--</nav>-->
+
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <nav id="navbar" class="">
   <div class="nav-wrapper">
-    <!-- Navbar Logo -->
+    
     <div class="logo">
-      <!-- Logo Placeholder for Inlustration -->
-      <a routerLink="/"><i class="fa fa-angellist"></i> Logo</a>
+      <a routerLink="/"><i class="fa fa-angellist"></i> Cinematrix</a>
     </div>
 
-    <!-- Navbar Links -->
+ 
     <ul id="menu">
       <li><a routerLink="/">Home</a></li>
       <li><a routerLink="/movies">Movies</a></li>
       <li><a routerLink="/tvchannels">TV Channels</a></li>
       <li><a routerLink="/tvseries">TV Series</a></li>
       <li><a routerLink="/favorites">Favorites</a></li>
-      <li><a routerLink="/auth">Authentication</a></li>
+      <li><a routerLink="/auth">Login/Sign up</a></li>
     </ul>
   </div>
 </nav>
 
 
-<!-- Menu Icon -->
+
 <div class="menuIcon">
   <span class="icon icon-bars"></span>
   <span class="icon icon-bars overlay"></span>
@@ -42,6 +33,54 @@
     <li><a routerLink="/movies">Movies</a></li>
     <li><a routerLink="/tvchannels">TV Channels</a></li>
     <li><a routerLink="/tvseries">TV Series</a></li>
-    <li><a routerLink="/auth">Authentication</a></li>
+    <li><a routerLink="/auth">Login/Sign up</a></li>
   </ul>
 </div>
+
+<!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<nav id="navbar" class="">
+  <div class="nav-wrapper">
+    
+    <div class="logo">
+      <a routerLink="/"><i class="fa fa-angellist"></i> Cinematrix</a>
+    </div>
+
+    <ul id="menu">
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/movies">Movies</a></li>
+      <li><a routerLink="/tvchannels">TV Channels</a></li>
+      <li><a routerLink="/tvseries">TV Series</a></li>
+      <li><a routerLink="/favorites">Favorites</a></li>
+      <ng-container *ngIf="!getLogged(); else loggedInLinks">
+        <li><a routerLink="/auth/login">Login</a></li>
+        <li><a routerLink="/auth/signup">Signup</a></li>
+      </ng-container>
+      <ng-template #loggedInLinks>
+        <li><a (click)="logout()">Log Out</a></li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="menuIcon">
+  <span class="icon icon-bars"></span>
+  <span class="icon icon-bars overlay"></span>
+</div>
+
+
+<div class="overlay-menu">
+  <ul id="menu">
+    <li><a routerLink="/">Home</a></li>
+    <li><a routerLink="/movies">Movies</a></li>
+    <li><a routerLink="/tvchannels">TV Channels</a></li>
+    <li><a routerLink="/tvseries">TV Series</a></li>
+    <ng-container *ngIf="!getLogged(); else loggedInLinks">
+      <li><a routerLink="/auth/login">Login</a></li>
+      <li><a routerLink="/auth/signup">Signup</a></li>
+    </ng-container>
+    <ng-template #loggedInLinks>
+      <li><a routerLink="/auth">LogOut</a></li>
+    </ng-template>
+  </ul>
+</div> -->

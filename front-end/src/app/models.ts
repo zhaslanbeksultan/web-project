@@ -24,7 +24,7 @@ export interface Movie {
   year: number;
   genres: Genre[];
   actors: Actor[];
-  country: string;
+  country: Country;
   poster: string;
   rating: number;
 }

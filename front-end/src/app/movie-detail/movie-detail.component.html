@@ -5,5 +5,9 @@
 <div *ngIf="movie">
   <h2>{{ movie.name }}</h2>
   <p>{{ movie.description }}</p>
-  <button (click)="addFavorite()">Add to Favorites</button>
+  <p>Actors:
+    <span *ngFor="let actor of movie.actors">{{ actor.first_name}}{{ actor.second_name}}, </span>
+  </p>
+  <p>{{movie.country.name}}</p>
+  <img src="{{ movie.poster }}" alt="Movie Poster">
 </div>

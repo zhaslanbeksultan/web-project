@@ -29,6 +29,23 @@ export class MovieService {
     return this.http.get<Movie>(url);
   }
 
+
+  createMovie():Observable<Movie[]>{
+    return this.http.get<Movie[]>(
+      `${this.BASE_URL}/api/movies/`
+    )
+  }
+
+  updateMovie(movieId: number): Observable<Movie> {
+    const url = `${this.BASE_URL}/api/movies/${movieId}/`;
+    return this.http.get<Movie>(url);
+  }
+
+  deleteMovie(movieId: number): Observable<Movie> {
+    const url = `${this.BASE_URL}/api/movies/${movieId}/`;
+    return this.http.get<Movie>(url);
+  }
+
   getMoviesByGenre(genreId: number): Observable<MovieResponse> {
     const url = `${this.BASE_URL}/api/genres/${genreId}/movies`;
     return this.http.get<MovieResponse>(url);

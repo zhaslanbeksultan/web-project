@@ -47,6 +47,8 @@ export const routes: Routes = [
   { path: 'years', component: YearsComponent , title: 'Years'},
   { path: 'years/:yearId/films', component: YearFilmsComponent, title: 'Year Films'},
   { path: 'favorites', component: FavoritesComponent, title: 'Favorites'},
+  { path: 'auth/login', component: AuthenticationComponent , title: 'Login'},
+  { path: 'auth/signup', component: AuthenticationComponent , title: 'Signup'},
 
 ];
 export const routing = RouterModule.forRoot(routes);

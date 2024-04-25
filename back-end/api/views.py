@@ -7,12 +7,11 @@ from rest_framework.decorators import api_view
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 
-from api.models import Movie, User, TVSeries, TVChannel, Genre, Actor, Country, Year, Favorite
+from api.models import Movie, User, TVSeries, TVChannel, Genre, Actor, Country, Year
 from rest_framework import status, generics, permissions, viewsets
 from rest_framework.views import APIView
 from api.serializers import (MovieSerializer, TVSeriesSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer,
-                             TVChannelsSerializer, GenresSerializer, ActorSerializer, CountrySerializer, YearSerializer,
-                             FavoriteSerializer)
+                             TVChannelsSerializer, GenresSerializer, ActorSerializer, CountrySerializer, YearSerializer)
 
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -76,6 +75,7 @@ def movie_list(request):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(["GET", "POST"])
 def tvchannels_list(request):
     if request.method == 'GET':
@@ -202,11 +202,25 @@ def year_single(request, year_id):
     serializer = YearSerializer(year)
     return Response(serializer.data)
 
-@api_view(['GET'])
+
+@api_view(['GET', 'PUT', 'DELETE'])
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
-    serializer = MovieSerializer(movie)
-    return Response(serializer.data)
+
+    if request.method == 'GET':
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = MovieSerializer(movie, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 def tvchannel_detail(request, tvchannel_id):
@@ -220,18 +234,18 @@ def tvseries_detail(request, tvseries_id):
     serializer =TVSeriesSerializer(tvseries)
     return Response(serializer.data)
 
-class FavoriteListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Favorite.objects.all()
-    serializer_class = FavoriteSerializer
-    permission_classes = [IsAuthenticated]
+# class FavoriteListCreateAPIView(generics.ListCreateAPIView):
+#     queryset = Favorite.objects.all()
+#     serializer_class = FavoriteSerializer
+#     permission_classes = [IsAuthenticated]
+#
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-class FavoriteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Favorite.objects.all()
-    serializer_class = FavoriteSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        return Favorite.objects.filter(user=self.request.user)
+# class FavoriteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Favorite.objects.all()
+#     serializer_class = FavoriteSerializer
+#     permission_classes = [IsAuthenticated]
+#
+#     def get_queryset(self):
+#         return Favorite.objects.filter(user=self.request.user)
